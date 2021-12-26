@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Courses";
+}
+
+@*@using OnlineCourseManagement.Controllers
+    @model OnlineCourseManagement.Controllers.CoursesController*@
+
+@*<link rel="shortcut icon" type="image/png"
+      href="../Images/logo.png" />*@
+<div class="container py-5">
+    <div class="row text-center mb-5">
+        <div class="col-lg-7 mx-auto">
+            <h1 class="display-4" style="font-family:'Copperplate Gothic'"><b>Course List</b></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <!-- list group item-->
+                @{
+                    var data = (List<OnlineCourseManagement.Models.Entities.Concrete.Course>)ViewData["Data"];
+                }
+                @foreach (var item in data)
+                {
+                    <a href="@item.Link" target="_blank" style="color:#343A40 !important">
+                        <li class="list-group-item">
+                            <!-- Custom content-->
+                            <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                                <div class="media-body ">
+                                    <h5 class="mt-0 font-weight-bold mb-2">@item.Name</h5>
+                                    <p class="font-italic text-muted mb-0 small">@item.Description</p>
+                                </div><img src="@item.ImagePath" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                            </div> <!-- End -->
+                        </li>
+                        <!-- End -->
+                    </a>
+                }
+            </ul> <!-- End -->
+        </div>
+    </div>
+</div>

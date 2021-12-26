@@ -1,0 +1,185 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+<!-- Custom styles for this template -->
+<link href="../bootstrap-4.6.1-examples/album/album.css" rel="stylesheet">
+
+
+<div class="text-center">
+    <h1 class="display-4"><b>Welcome To Live Learn</b></h1>
+</div>
+
+<section class="jumbotron text-center" style="background-color:#F8F9FA">
+    <div class="container">
+        <h1>Courses and Informations About Courses</h1>
+        <p class="lead text-muted">Students can look at the informations about courses and its lecturers through the links below. There are some short information about the course and lecturers itself</p>
+        <p>
+            @*<a href="../htmls/courses.html" class="btn btn-primary my-2">Courses List</a>*@
+            <a class="btn btn-primary my-2" asp-area="" asp-controller="Courses" asp-action="GetAll">Courses List</a>
+            <a href="#" class="btn btn-secondary my-2">Lecturers List</a>
+        </p>
+    </div>
+</section>
+
+<div class="album py-5 bg-light">
+    <div class="container">
+
+        <div class="row">
+            @{
+                var service = (OnlineCourseManagement.Models.Business.Abstract.ICategoryService)ViewData["Service"];
+                var data = service.GetAll().Data;
+            }
+            @foreach (var item in data)
+            {
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img class="bd-placeholder-img card-img-top" width="100" height="225" src="@item.ImagePath" />
+                        <div class="card-body" style="width:300px ; height:150px">
+                            <p class="card-text">@item.Description</p>
+                            <div class="d-flex justify-content-between align-items-center" style="position: absolute; bottom: 10px; left: 125px">
+                                <a type="button" class="btn btn-sm btn-outline-secondary" style="padding:5px 35px;background-color:#343A40 !important ;color:yellow" asp-area="" asp-controller="Courses" asp-action="GetCoursesByCategoryId" asp-route-id="@item.Id">View</a>
+                                
+
+                                @*<button type="button" class="btn btn-sm btn-outline-secondary" style="padding:5px 35px">@Html.ActionLink("View", "GetCoursesByCategoryId", "Courses", new { id = @item.Id })</button>*@
+                                <!--<div class="btn-group">
+    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>-->
+                                @*<button type="button" class="btn btn-sm btn-outline-secondary">Select</button>*@
+                                <!--</div>-->
+                                <!-- <small class="text-muted">9 mins</small> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!--<div class="col-md-4">
+    <div class="card mb-4 shadow-sm">
+        <img class="bd-placeholder-img card-img-top" width="100" height="225" src="../Images/asp.net.jpeg" />
+        <div class="card-body">
+            <p class="card-text">We will insert information about courses when we are done with back-end parts.</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Select</button>
+                </div>-->
+            <!-- <small class="text-muted">9 mins</small> -->
+            <!--</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <img class="bd-placeholder-img card-img-top" width="100" height="225" src="../Images/csharp.jpeg" />
+
+            <div class="card-body">
+                <p class="card-text">We will insert information about courses when we are done with back-end parts.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Select</button>
+                    </div>-->
+            <!-- <small class="text-muted">9 mins</small> -->
+            <!--</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <img class="bd-placeholder-img card-img-top" width="100" height="225" src="../Images/cplusplus.png" />
+
+            <div class="card-body">
+                <p class="card-text">We will insert information about courses when we are done with back-end parts.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Select</button>
+                    </div>-->
+            <!-- <small class="text-muted">9 mins</small> -->
+            <!--</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <img class="bd-placeholder-img card-img-top" width="100" height="225" src="../Images/frontend.jpeg" />
+
+            <div class="card-body">
+                <p class="card-text">We will insert information about courses when we are done with back-end parts.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Select</button>
+                    </div>-->
+            <!-- <small class="text-muted">9 mins</small> -->
+            <!--</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <img class="bd-placeholder-img card-img-top" width="100" height="225" src="../Images/java.png" />
+
+            <div class="card-body">
+                <p class="card-text">We will insert information about courses when we are done with back-end parts.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Select</button>
+                    </div>-->
+            <!-- <small class="text-muted">9 mins</small> -->
+            <!--</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <img class="bd-placeholder-img card-img-top" width="100" height="225" src="../Images/sql.png" />
+
+            <div class="card-body">
+                <p class="card-text">We will insert information about courses when we are done with back-end parts.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Select</button>
+                    </div>-->
+            <!-- <small class="text-muted">9 mins</small> -->
+            <!--</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <img class="bd-placeholder-img card-img-top" width="100" height="225" src="../Images/python.png" />
+
+            <div class="card-body">
+                <p class="card-text">We will insert information about courses when we are done with back-end parts.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Select</button>
+                    </div>-->
+            <!-- <small class="text-muted">9 mins</small> -->
+            <!--</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <img class="bd-placeholder-img card-img-top" width="100" height="225" src="../Images/react.png" />
+
+            <div class="card-body">
+                <p class="card-text">We will insert information about courses when we are done with back-end parts.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Select</button>
+                    </div>-->
+            <!-- <small class="text-muted">9 mins</small> -->
+            <!--</div>
+            </div>
+        </div>
+    </div>-->
+        </div>
+    </div>
+</div>

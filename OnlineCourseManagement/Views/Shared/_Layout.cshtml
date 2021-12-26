@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LiveLearn - @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/album/">
+    <link rel="shortcut icon" type="image/png"
+          href="https://localhost:44357/Images/logo.png" />
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        #signin {
+            color: yellow;
+            border-radius: 10px;
+            margin-right: 10px;
+            background-color: #343a40 !important;
+            margin-left : auto;
+        }
+
+        #login {
+            color: yellow;
+            border-radius: 10px;
+            margin-right: 25px;
+            background-color: #343a40 !important;
+        }
+
+        .text-yellow {
+            color: yellow;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <div class="collapse bg-dark" id="navbarHeader">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-md-7 py-4">
+                        <h4 class="text-yellow">About</h4>
+                        <p class="text-muted">This is an online learning platform. If you want to learn more about coding and software you are in the right place!!</p>
+                    </div>
+                    <div class="col-sm-4 offset-md-1 py-4">
+                        <h4 class="text-yellow">Contact</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-yellow">Twitter</a></li>
+                            <li><a href="#" class="text-yellow">Facebook</a></li>
+                            <li><a href="#" class="text-yellow">Email us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container d-flex justify-content-between">
+                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img class="bd-placeholder-img card-img-top" width="20" height="20" style="margin-right:10px" src="https://localhost:44357/Images/logo.png" />
+                    <strong style="color:yellow">LiveLearn</strong>
+                </a>
+
+                <!--<a href="#" class="navbar-brand d-flex align-items-center">
+    <img class="bd-placeholder-img card-img-top" width="20" height="20" style="margin-right:10px" src="../Images/logo.png" />-->
+                @*<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" /><circle cx="12" cy="13" r="4" /></svg>*@
+                <!--<strong style="color:yellow">LiveLearn</strong>
+    </a>-->
+                @*<a id="signin" href="~/bootstrap-4.6.1-examples/sign-in/signin.html" class="d-flex">
+            <strong>Sign In</strong>
+        </a>
+
+        <a id="login" href="~/bootstrap-4.6.1-examples/sign-in/login.html" class="d-flex">
+            <strong>Log In</strong>
+        </a>*@
+
+                <a id="signin" asp-area="" asp-controller="Auth" asp-action="SignInForm">Sign In</a>
+                <a id="login" asp-area="" asp-controller="Auth" asp-action="LogInForm">Log In</a>
+                <a id="login" asp-area="" asp-controller="Categories" asp-action="AddCategory">Add Category</a>
+                <a id="login" asp-area="" asp-controller="Courses" asp-action="AddCourse">Add Course</a>
+
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <main role="main">
+            @RenderBody()
+
+        </main>
+    </div>
+    @*@Html.ActionLink("Contact", "Contact", "Home")*@
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021-  LiveLearn - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
