@@ -31,6 +31,29 @@
             -ms-user-select: none;
             user-select: none;
         }
+
+        .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+
+            .form-signin .form-control {
+                position: relative;
+                box-sizing: border-box;
+                height: auto;
+                padding: 10px;
+                font-size: 16px;
+            }
+
+                .form-signin .form-control:focus {
+                    z-index: 2;
+                }
+
+            .form-signin img {
+                border-radius: 7px
+            }
     </style>
 
 
@@ -39,20 +62,31 @@
 </head>
 <body class="text-center">
 
-    <form class="form-signin" action="../Courses/Add" method="post">
+    <form class="form-signin" action="../CourseInstructors/Add" method="post">
         <img class="mb-4" src="../Images/logo.png" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Please Enter Course Information</h1>
         @{
-            var categories = (List<OnlineCourseManagement.Models.Entities.Concrete.Category>)ViewData["Data"];
+            var categories = (List<OnlineCourseManagement.Models.Entities.Concrete.Category>)ViewData["Categories"];
+            var users = (List<OnlineCourseManagement.Models.Entities.Concrete.User>)ViewData["Users"];
         }
-        <SELECT name="CategoryId">
+
+        <label for="inputCategory" class="sr-only">Category Name</label>
+        <SELECT name="CategoryId" id="inputCategory" class="form-control" required autofocus>
             @foreach (var category in categories)
             {
                 <OPTION Value="@category.Id">@category.Name</OPTION>
             }
         </SELECT>
 
-        <label for="inputName" class="sr-only">Name</label>
+        <label for="inputUsers" class="sr-only">Users Name</label>
+        <SELECT multiple name="UserId" id="inputUsers" class="form-control" required autofocus>
+            @foreach (var user in users)
+            {
+                <OPTION Value="@user.Id">@user.Name</OPTION>
+            }
+        </SELECT>
+        
+        <label for="inputName" class="sr-only">Course Name</label>
         <input type="text" name="Name" id="inputName" class="form-control" placeholder="Enter Course Name" required autofocus>
 
         <label for="inputDescription" class="sr-only">Description</label>
@@ -64,7 +98,7 @@
         <label for="inputLink" class="sr-only">Link</label>
         <input type="text" name="Link" id="inputLink" class="form-control" placeholder="Enter Link" required autofocus>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Add Course</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color:#343A40 !important ;color:yellow">Add Course</button>
     </form>
 
 

@@ -6,9 +6,11 @@ using System.Text;
 
 namespace OnlineCourseManagement.Models.Business.Abstract
 {
-    public interface IPaymentService
+    public interface ICourseCartService
     {
-        IResult AddPayment(Payment payment);
-        IDataResult<List<Payment>> GetPaymentsByUserId(int id);
+        IResult Add(CourseCart courseCart);
+        IResult Delete(CourseCart courseCart);
+        IDataResult<CourseCart> GetById(int id);
+        IDataResult<List<CourseCart>> GetCourseCartsByUserId(int id);
     }
 }

@@ -14,21 +14,47 @@ namespace OnlineCourseManagement.Controllers
     public class CourseInstructorsController : Controller
     {
         ICourseInstructorService _courseInstructorService;
+        ICourseService _courseService;
+        IUserService _userService;
 
-        public CourseInstructorsController(ICourseInstructorService courseInstructorService)
+        public CourseInstructorsController(ICourseInstructorService courseInstructorService, ICourseService courseService, IUserService userService)
         {
             _courseInstructorService = courseInstructorService;
+            _courseService = courseService;
+            _userService = userService;
         }
 
         //[HttpPost("add")]
-        public IActionResult Add(CourseInstructor courseInstructor)
+        public IActionResult Add(Course course, int[] userId)
         {
-            var result = _courseInstructorService.Add(courseInstructor);
+            var result = _courseService.Add(course);
+            foreach (var id in userId)
+            {
+                User user = _userService.GetById(id).Data;
+                if (!user.Status.Equals("Admin"))
+                {
+                    user.Status = "CourseInstructor";
+                    _userService.Update(user);
+                }
+                _courseInstructorService.Add(new CourseInstructor { UserId = id, CourseId = course.Id });
+            }
             if (result.Success)
             {
-                return Ok(result);
+                return RedirectToRoute(new
+                {
+                    controller = "Home",
+                    action = "Index"
+                });
             }
             return BadRequest(result);
+
+            //var result = _courseInstructorService.Add(courseInstructor);
+            //if (result.Success)
+            //{
+            //    return Ok(result);
+            //}
+            //return BadRequest(result);
+            return null;
         }
 
         //[HttpPost("update")]

@@ -26,7 +26,8 @@ namespace OnlineCourseManagement.Controllers
             var result = _categoryService.GetAll();
             if (result.Success)
             {
-                ViewData["Service"] = _categoryService;
+                ViewData["CategoryService"] = _categoryService;
+                //ViewData["CourseCartService"] = _courseCartService;
                 return View();
             }
             return BadRequest(result);

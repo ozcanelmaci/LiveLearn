@@ -21,8 +21,8 @@ namespace OnlineCourseManagement.Models.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
 
             //For Payments Controller
-            builder.RegisterType<PaymentManager>().As<IPaymentService>().SingleInstance();
-            builder.RegisterType<EfPaymentDal>().As<IPaymentDal>().SingleInstance();
+            builder.RegisterType<CourseCartManager>().As<ICourseCartService>().SingleInstance();
+            builder.RegisterType<EfCourseCartDal>().As<ICourseCartDal>().SingleInstance();
 
             //For Categories Controller
             builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
@@ -36,9 +36,6 @@ namespace OnlineCourseManagement.Models.Business.DependencyResolvers.Autofac
             builder.RegisterType<CourseInstructorManager>().As<ICourseInstructorService>().SingleInstance();
             builder.RegisterType<EfCourseInstructorDal>().As<ICourseInstructorDal>().SingleInstance();
 
-            //For Lessons Controller
-            builder.RegisterType<LessonManager>().As<ILessonService>().SingleInstance();
-            builder.RegisterType<EfLessonDal>().As<ILessonDal>().SingleInstance();
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
 

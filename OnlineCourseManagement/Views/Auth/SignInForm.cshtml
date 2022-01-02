@@ -31,7 +31,27 @@
             -ms-user-select: none;
             user-select: none;
         }
+        .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
 
+            .form-signin .form-control {
+                position: relative;
+                box-sizing: border-box;
+                height: auto;
+                padding: 10px;
+                font-size: 16px;
+            }
+
+                .form-signin .form-control:focus {
+                    z-index: 2;
+                }
+            .form-signin img {
+                border-radius: 7px
+            }
     </style>
 
 
@@ -47,7 +67,7 @@
         <input type="text" name="Name" id="inputName" class="form-control" placeholder="Name" required autofocus>
 
         <label for="inputPhoneNumber" class="sr-only">Phone Number</label>
-        <input type="text" name="PhoneNumber" id="inputPhoneNumber" class="form-control" placeholder="Phone Number" required autofocus>
+        <input type="text" name="PhoneNumber" maxlength="10" id="inputPhoneNumber" class="form-control" placeholder="Phone Number" required autofocus>
 
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" name="Email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -57,7 +77,13 @@
 
 
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color:#343A40 !important ;color:yellow">Sign in</button>
+        <p>Do you have an account?<a type="button" class="btn btn-lg btn-primary btn-block"
+           style="padding:5px 35px;background-color:#343A40 !important ;color:yellow"
+           asp-area="" asp-controller="Auth" asp-action="LogInForm">
+           Log In
+           </a>
+        </p>
     </form>
 
 

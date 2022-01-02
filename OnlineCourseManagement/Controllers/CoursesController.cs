@@ -15,17 +15,36 @@ namespace OnlineCourseManagement.Controllers
     {
         ICourseService _courseService;
         ICategoryService _categoryService;
+        IUserService _userService;
+        ICourseInstructorService _courseInstructorsService;
 
-        public CoursesController(ICourseService courseService, ICategoryService categoryService)
+        public CoursesController(ICourseService courseService, ICategoryService categoryService, IUserService userService,
+            ICourseInstructorService courseInstructorService)
         {
             _courseService = courseService;
             _categoryService = categoryService;
+            _userService = userService;
+            _courseInstructorsService = courseInstructorService;
         }
 
         public IActionResult AddCourse()
         {
-            ViewData["Data"] = _categoryService.GetAll().Data;
+            ViewData["Categories"] = _categoryService.GetAll().Data;
+            ViewData["Users"] = _userService.GetAll().Data;
+
             return View();
+        }
+
+        public IActionResult DeleteCourse(int id)
+        {
+            Course courseToBeDeleted = _courseService.GetById(id).Data;
+            Delete(courseToBeDeleted);
+            return RedirectToRoute(new
+            {
+                controller = "Home",
+                action = "Index"
+            });
+            //return View();
         }
 
         //[HttpPost("add")]
@@ -43,7 +62,7 @@ namespace OnlineCourseManagement.Controllers
             return BadRequest(result);
         }
 
-        //[HttpPost("update")]
+        [HttpPost("update")]
         public IActionResult Update(Course course)
         {
             var result = _courseService.Update(course);
@@ -71,7 +90,8 @@ namespace OnlineCourseManagement.Controllers
             var result = _courseService.GetAll();
             if (result.Success)
             {
-                ViewData["Service"] = _courseService;
+                ViewData["Courses"] = result.Data;
+                ViewData["CourseInstructorService"] = _courseInstructorsService;
 
                 return View();
             }
@@ -104,6 +124,7 @@ namespace OnlineCourseManagement.Controllers
             if (result.Success)
             {
                 ViewData["Data"] = result.Data;
+                ViewData["CourseInstructorService"] = _courseInstructorsService;
 
                 return View();
             }

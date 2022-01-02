@@ -36,6 +36,29 @@
         .text-yellow {
             color: yellow;
         }
+
+        #footer {
+            position: fixed;
+            padding: 10px 10px 0px 10px;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            background-color: #343a40 !important;
+        }
+
+        #header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 55px;
+            z-index: 9999;
+        }
+
+        address ul a:hover{
+            background-color: white;
+            color:black;
+        }
+
     </style>
 
 </head>
@@ -51,38 +74,54 @@
                     <div class="col-sm-4 offset-md-1 py-4">
                         <h4 class="text-yellow">Contact</h4>
                         <ul class="list-unstyled">
-                            <li><a href="#" class="text-yellow">Twitter</a></li>
-                            <li><a href="#" class="text-yellow">Facebook</a></li>
-                            <li><a href="#" class="text-yellow">Email us</a></li>
+                            <li class="text-yellow">
+                                Email us:
+                                <address>
+                                    <ul>
+                                        <a class="text-yellow" href="mailto:oz.ozcan.elmaci55@gmail.com">Özcan Elmacı</a>
+                                        <br>
+                                        <a class="text-yellow" href="mailto:yusufokkabas@gmail.com">Yusuf Orhan Okkabas</a>
+                                        <br>
+                                        <a class="text-yellow" href="mailto:tarikcanavar@gmail.com">Tarık Canavar</a>
+                                    </ul>
+
+                                </address>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="navbar navbar-dark bg-dark shadow-sm"  id="header">
             <div class="container d-flex justify-content-between">
                 <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
                     <img class="bd-placeholder-img card-img-top" width="20" height="20" style="margin-right:10px" src="https://localhost:44357/Images/logo.png" />
                     <strong style="color:yellow">LiveLearn</strong>
                 </a>
+                @{
+                    OnlineCourseManagement.Models.Entities.Concrete.User user = OnlineCourseManagement.Controllers.AuthController.user;
+                    if (user == null)
+                    {
+                        <a id="signin" asp-area="" asp-controller="Auth" asp-action="SignInForm">Sign In</a>
+                        <a id="login" asp-area="" asp-controller="Auth" asp-action="LogInForm">Log In</a>
+                    }
+                    else
+                    {
+                        <a id="signin" asp-area="" asp-controller="Categories" asp-action="AddCategory">Add Category</a>
+                        <a id="login" asp-area="" asp-controller="Courses" asp-action="AddCourse">Add Course</a>
 
-                <!--<a href="#" class="navbar-brand d-flex align-items-center">
-    <img class="bd-placeholder-img card-img-top" width="20" height="20" style="margin-right:10px" src="../Images/logo.png" />-->
-                @*<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" /><circle cx="12" cy="13" r="4" /></svg>*@
-                <!--<strong style="color:yellow">LiveLearn</strong>
-    </a>-->
-                @*<a id="signin" href="~/bootstrap-4.6.1-examples/sign-in/signin.html" class="d-flex">
-            <strong>Sign In</strong>
-        </a>
-
-        <a id="login" href="~/bootstrap-4.6.1-examples/sign-in/login.html" class="d-flex">
-            <strong>Log In</strong>
-        </a>*@
-
-                <a id="signin" asp-area="" asp-controller="Auth" asp-action="SignInForm">Sign In</a>
-                <a id="login" asp-area="" asp-controller="Auth" asp-action="LogInForm">Log In</a>
-                <a id="login" asp-area="" asp-controller="Categories" asp-action="AddCategory">Add Category</a>
-                <a id="login" asp-area="" asp-controller="Courses" asp-action="AddCourse">Add Course</a>
+                        <div class="dropdown">
+                            <button style="background-color: #343a40 !important; color:yellow"
+                                    class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @user.Name
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="btn btn-secondary dropdown-item" asp-area="" asp-controller="CourseCarts" asp-action="GetCourseCartsByUserId" asp-route-id="@user.Id">My Courses</a>
+                                <a class="btn btn-secondary dropdown-item" asp-area="" asp-controller="Auth" asp-action="LogOut">Log Out</a>
+                            </div>
+                        </div>
+                    }
+                }
 
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,16 +130,15 @@
             </div>
         </div>
     </header>
-    <div class="container">
+    <div class="container" style="margin-top:55px">
         <main role="main">
             @RenderBody()
 
         </main>
     </div>
-    @*@Html.ActionLink("Contact", "Contact", "Home")*@
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
+    <footer class="border-top footer text-muted" id="footer">
+        <div class="container" style="color: yellow">
             &copy; 2021-  LiveLearn - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>

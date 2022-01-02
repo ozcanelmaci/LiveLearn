@@ -1,42 +1,107 @@
 ﻿@{
     ViewData["Title"] = "Courses";
+    var data = (List<OnlineCourseManagement.Models.Entities.Concrete.Course>)ViewData["Data"];
+    var courseInstructorService = (OnlineCourseManagement.Models.Business.Abstract.ICourseInstructorService)ViewData["CourseInstructorService"];
+    OnlineCourseManagement.Models.Entities.Concrete.User user = OnlineCourseManagement.Controllers.AuthController.user;
 }
 
-@*@using OnlineCourseManagement.Controllers
-    @model OnlineCourseManagement.Controllers.CoursesController*@
-
-@*<link rel="shortcut icon" type="image/png"
-      href="../Images/logo.png" />*@
 <div class="container py-5">
     <div class="row text-center mb-5">
         <div class="col-lg-7 mx-auto">
             <h1 class="display-4" style="font-family:'Copperplate Gothic'"><b>Course List</b></h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-8 mx-auto">
-            <!-- List group-->
-            <ul class="list-group shadow">
-                <!-- list group item-->
-                @{
-                    var data = (List<OnlineCourseManagement.Models.Entities.Concrete.Course>)ViewData["Data"];
-                }
-                @foreach (var item in data)
-                {
-                    <a href="@item.Link" target="_blank" style="color:#343A40 !important">
-                        <li class="list-group-item">
-                            <!-- Custom content-->
-                            <div class="media align-items-lg-center flex-column flex-lg-row p-3">
-                                <div class="media-body ">
-                                    <h5 class="mt-0 font-weight-bold mb-2">@item.Name</h5>
-                                    <p class="font-italic text-muted mb-0 small">@item.Description</p>
-                                </div><img src="@item.ImagePath" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
-                            </div> <!-- End -->
-                        </li>
-                        <!-- End -->
-                    </a>
-                }
-            </ul> <!-- End -->
-        </div>
-    </div>
+    @{
+        var userProperty = 0;
+        switch (user.Status)
+        {
+            case "Admin":
+                userProperty = 1;
+                break;
+            case "CourseInstructor":
+                userProperty = 2;
+                break;
+        }
+
+        if (data.Count == 0)
+        {
+            <br />
+            <p style="background-color:yellow; display:inline; border-radius:20px; padding:8px; ">
+                There is no course in this category for now. Thanks for your understanding. New courses will be added soon!!!
+            </p>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <!-- List group-->
+                    <ul class="list-group shadow">
+                        <!-- list group item-->
+
+                        @foreach (var course in data)
+                        {
+
+                            <li class="list-group-item">
+                                <!-- Custom content-->
+                                <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                                    <div class="media-body ">
+                                        <a href="@course.Link" target="_blank" style="color:#343A40 !important">
+                                            <h5 class="mt-0 font-weight-bold mb-2">@course.Name</h5>
+                                            <p class="font-italic text-muted mb-0 small">@course.Description</p>
+                                        </a>
+
+                                        <p>
+                                            <a type="button" class="btn btn-sm btn-outline-secondary"
+                                               style="padding:5px 35px;background-color:#343A40 !important ;color:yellow"
+                                               asp-area="" asp-controller="CourseCarts" asp-action="AddCourseCart" method="post"
+                                               asp-route-id="@course.Id">
+                                                Add To My Courses
+                                            </a>
+                                            @{
+                                                if (userProperty == 1)
+                                                {
+                                                    <a type="button" class="btn btn-sm btn-outline-secondary"
+                                                       style="padding:5px 35px;background-color:#343A40 !important ;color:yellow"
+                                                       asp-area="" asp-controller="Courses" asp-action="DeleteCourse"
+                                                       asp-route-id="@course.Id">
+                                                        Delete Course
+                                                    </a>
+                                                }
+                                                if (userProperty == 2)
+                                                {
+                                                    var instructors = courseInstructorService.GetCourseInstructorByUserId(user.Id).Data;
+                                                    foreach (var instructor in instructors)
+                                                    {
+                                                        if (instructor.CourseId == course.Id)
+                                                        {
+                                                            <a type="button" class="btn btn-sm btn-outline-secondary"
+                                                               style="padding:5px 35px;background-color:#343A40 !important ;color:yellow"
+                                                               asp-area="" asp-controller="Courses" asp-action="DeleteCourse"
+                                                               asp-route-id="@course.Id">
+                                                                Delete Course
+                                                            </a>
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <img src="@course.ImagePath" alt="Please check your internet connection!" width="200" class="ml-lg-5 order-1 order-lg-2">
+                                        <p class="font-italic text-muted small ml-lg-5 order-1 order-lg-2">Course Instructors:</p>
+                                       @foreach (var courseInstructor in courseInstructorService.GetCourseInstructorDetailsByCourseId(course.Id).Data)
+                                        {
+                                            <p class="font-italic text-muted small ml-lg-5 order-1 order-lg-2">@courseInstructor.Name</p>
+                                        }
+                                    </div>
+                                </div> <!-- End -->
+                            </li>
+                            <!-- End -->
+                        }
+                    </ul> <!-- End -->
+                </div>
+            </div>
+        }
+    }
+
 </div>

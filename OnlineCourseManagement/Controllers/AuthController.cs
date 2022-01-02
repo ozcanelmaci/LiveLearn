@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OnlineCourseManagement.Models.Entities.Concrete;
 
 namespace OnlineCourseManagement.Controllers
 {
@@ -14,6 +15,7 @@ namespace OnlineCourseManagement.Controllers
     public class AuthController : Controller
     {
         private IAuthService _authService;
+        public static User user = null;
 
         public AuthController(IAuthService authService)
         {
@@ -30,6 +32,16 @@ namespace OnlineCourseManagement.Controllers
             return View();
         }
 
+        public IActionResult LogOut()
+        {
+            user = null;
+            return RedirectToRoute(new
+            {
+                controller = "Home",
+                action = "Index"
+            });
+        }
+
         //[HttpPost("login")]
         public ActionResult Login(UserForLoginDto userForLoginDto)
         {
@@ -40,7 +52,13 @@ namespace OnlineCourseManagement.Controllers
             }
             if (userToLogin.Success)
             {
-                return Ok(userToLogin);
+                user = userToLogin.Data;
+                return RedirectToRoute(new
+                {
+                    controller = "Home",
+                    action = "Index"
+                });
+                //return Ok(userToLogin);
             }
 
             return BadRequest(userToLogin.Message);
@@ -55,10 +73,15 @@ namespace OnlineCourseManagement.Controllers
                 return BadRequest(userExists.Message);
             }
 
+            userForRegisterDto.Status = "User";
             var registerResult = _authService.Register(userForRegisterDto, userForRegisterDto.Password);
             if (registerResult.Success)
             {
-                return Ok(registerResult.Data);
+                return RedirectToRoute(new
+                {
+                    controller = "Auth",
+                    action = "LogInForm"
+                });
             }
 
             return BadRequest(registerResult.Message);

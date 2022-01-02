@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "My Courses";
+}
+@{
+    OnlineCourseManagement.Models.Entities.Concrete.User user = OnlineCourseManagement.Controllers.AuthController.user;
+    List<OnlineCourseManagement.Models.Entities.Concrete.CourseCart> myCourseCarts = null;
+    var courseService = (OnlineCourseManagement.Models.Business.Abstract.ICourseService)ViewData["CourseService"];
+    if (user != null)
+    {
+        myCourseCarts = (List<OnlineCourseManagement.Models.Entities.Concrete.CourseCart>)ViewData["MyCourseCart"];
+        if (myCourseCarts.Count == 0)
+        {
+            <br />
+            <p style="background-color:yellow; display:inline; border-radius:20px; padding:8px; ">
+                There is no course!!! To add one =>
+                <a asp-area="" asp-controller="Courses" asp-action="GetAll"
+                   style="color:#343A40 !important">Click</a>
+            </p>
+        }
+        else
+        {
+            foreach (var item in myCourseCarts)
+            {
+                var course = courseService.GetById(item.CourseId).Data;
+                <li class="list-group-item">
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        <div class="media-body ">
+                            <a href="@course.Link" target="_blank" style="color:#343A40 !important">
+                                <h5 class="mt-0 font-weight-bold mb-2">@course.Name</h5>
+                                <p class="font-italic text-muted mb-0 small">@course.Description</p>
+                            </a>
+
+                            <p>
+                                <a type="button" class="btn btn-sm btn-outline-secondary"
+                                   style="padding:5px 35px;background-color:#343A40 !important ;color:yellow"
+                                   asp-area="" asp-controller="CourseCarts" asp-action="DeleteFromMyCourses"
+                                   asp-route-id="@item.Id">
+                                    Delete From My Courses
+                                </a>
+                            </p>
+
+                        </div>
+                        <img src="@course.ImagePath" alt="Please check your internet connection!" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div> <!-- End -->
+                </li>
+            }
+        }
+    }
+}
+

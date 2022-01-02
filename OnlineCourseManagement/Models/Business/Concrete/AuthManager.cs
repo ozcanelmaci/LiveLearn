@@ -41,7 +41,8 @@ namespace OnlineCourseManagement.Models.Business.Concrete
                 Email = userForRegisterDto.Email,
                 Name = userForRegisterDto.Name,
                 Password = userForRegisterDto.Password,
-                PhoneNumber = userForRegisterDto.PhoneNumber
+                PhoneNumber = userForRegisterDto.PhoneNumber,
+                Status = userForRegisterDto.Status,
             };
             _userService.Add(user);
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
