@@ -15,6 +15,7 @@ namespace OnlineCourseManagement.Controllers
     //[ApiController]
     public class CourseCartsController : Controller
     {
+
         ICourseCartService _courseCartService;
         ICourseService _courseService;
 
@@ -24,17 +25,30 @@ namespace OnlineCourseManagement.Controllers
             _courseService = courseService;
         }
 
-        public IActionResult AddCourseCart(int id)
+        public IActionResult AddCourseCart(int id, string controllerName, string actionName, int categoryId)
         {
             CourseCart courseCart = new CourseCart();
             courseCart.CourseId = id;
             courseCart.UserId = OnlineCourseManagement.Controllers.AuthController.user.Id;
             Add(courseCart);
-            return RedirectToRoute(new
+            if (categoryId == 0)
             {
-                controller = "Home",
-                action = "Index"
-            });
+                return RedirectToRoute(new
+                {
+                    controller = controllerName,
+                    action = actionName
+                });
+            }
+            else
+            {
+                return RedirectToRoute(new
+                {
+                    controller = controllerName,
+                    action = actionName,
+                    id = categoryId
+                });
+            }
+            
         }
 
         public IActionResult DeleteFromMyCourses(int id)

@@ -54,7 +54,7 @@
                                             <a type="button" class="btn btn-sm btn-outline-secondary"
                                                style="padding:5px 35px;background-color:#343A40 !important ;color:yellow"
                                                asp-area="" asp-controller="CourseCarts" asp-action="AddCourseCart" method="post"
-                                               asp-route-id="@course.Id">
+                                               asp-route-id="@course.Id" asp-route-controllerName="Courses" asp-route-actionName="GetCoursesByCategoryId" asp-route-categoryId="@course.CategoryId">
                                                 Add To My Courses
                                             </a>
                                             @{
